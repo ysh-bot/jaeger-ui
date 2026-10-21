@@ -70,7 +70,7 @@ The pipeline above is the standard four-phase layered-graph algorithm that Graph
 
 The drawing is never the whole graph. It is the set of **pinned** services, what calls them, and what they call, one hop each, with the fan folded:
 
-- Each pin is a box with a numbered badge in pin order.
+- Each pin is a box labelled with the service name and ringed in the pin colour; a small numbered badge in its corner gives the pin order, which the search pane repeats next to the checkbox.
 - With one pin, its callers fold into one `callers of X (N)` box above it and its callees into one `callees of X (N)` box below; a single neighbour is drawn as a node.
 - With several pins, *one* `more callers (N)` group holds every unpinned caller of any pin and *one* `more callees (N)` group every unpinned callee, drawn as strips above and below the whole path. The services that two or more pins share are drawn as individual nodes inside those strips, ranked by how many pins they touch and then by whole-graph degree, up to a fixed count; a path explorer is usually looking for exactly what two services share, so those are never folded.
 - Every drawn edge touches a pin. A neighbour's own calls to other neighbours are not drawn; a stub line under each node (`← in · → out`) counts the callers and callees that are not drawn.
@@ -216,18 +216,18 @@ So the drawing, search by name, the picker, pin state, the details card over Jae
 Add an **Explore** mode to the System Architecture page beside the current DAG. The DAG stays as it is for the reader who wants the whole shape. Explore is laid out as three columns and a status line:
 
 ```
-+--------------+-------------------------------------------+----------------+
-| Search pane  | Drawing                                   | Details card   |
-|              |   more callers (N)   shared   shared      |                |
-| [find...  /] |          |             |        |         | selection, or  |
-| [x] pin-a  1 |        +-+--+       +--+-+      |         | help when      |
-| [x] pin-b  2 |        | 1  |------>| 2  |<-----+         | nothing is     |
-| [ ] svc-c    |        +-+--+       +--+-+                | selected       |
-| [ ] svc-d    |          |             |                  |                |
-| ...          |   more callees (N)   shared               |                |
-+--------------+-------------------------------------------+----------------+
-| Exploring from 2 pins, 7 services, 9 calls    [3 calls worse than 24h ago]|
-+---------------------------------------------------------------------------+
++--------------+-----------------------------------------------+----------------+
+| Search pane  | Drawing                                       | Details card   |
+|              |    more callers (N)      shared      shared   |                |
+| [find...  /] |            |                |           |     | selection, or  |
+| [x] pin-a  1 |        +---+----+       +---+----+     |      | help when      |
+| [x] pin-b  2 |        | pin-a  |------>| pin-b  |<----+      | nothing is     |
+| [ ] svc-c    |        +---+----+       +---+----+            | selected       |
+| [ ] svc-d    |            |                |                 |                |
+| ...          |    more callees (N)      shared               |                |
++--------------+-----------------------------------------------+----------------+
+| Exploring from 2 pins, 7 services, 9 calls      [3 calls worse than 24h ago]  |
++-------------------------------------------------------------------------------+
 ```
 
 **Search pane.** A text input over service names with the DDG's existing `uiFind` semantics, a result list whose checkbox pins the service, and with no query the pins first and then services by total call count. `/` focuses the input. Facets wait for attributes Jaeger does not have and are not part of this RFC.
