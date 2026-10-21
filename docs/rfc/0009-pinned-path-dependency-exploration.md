@@ -216,18 +216,18 @@ So the drawing, search by name, the picker, pin state, the details card over Jae
 Add an **Explore** mode to the System Architecture page beside the current DAG. The DAG stays as it is for the reader who wants the whole shape. Explore is laid out as three columns and a status line:
 
 ```
-┌──────────────┬──────────────────────────────────────────┬────────────────┐
-│ Search pane  │ Drawing                                   │ Details card   │
-│              │   more callers (N)  shared  shared        │                │
-│ [find…    /] │          │           │      │             │ selection, or  │
-│ ☑ pin-a   ①  │        ┌─┴─┐       ┌─┴──┐   │             │ help when      │
-│ ☑ pin-b   ②  │        │ ① │──────▶│ ②  │◀──┘             │ nothing is     │
-│ ☐ svc-c      │        └─┬─┘       └─┬──┘                 │ selected       │
-│ ☐ svc-d      │          │           │                    │                │
-│ …            │   more callees (N)  shared                │                │
-├──────────────┴──────────────────────────────────────────┴────────────────┤
-│ Exploring from 2 pins · 7 services · 9 calls   [3 calls worse than 24h ago] │
-└───────────────────────────────────────────────────────────────────────────┘
++--------------+-------------------------------------------+----------------+
+| Search pane  | Drawing                                   | Details card   |
+|              |   more callers (N)   shared   shared      |                |
+| [find...  /] |          |             |        |         | selection, or  |
+| [x] pin-a  1 |        +-+--+       +--+-+      |         | help when      |
+| [x] pin-b  2 |        | 1  |------>| 2  |<-----+         | nothing is     |
+| [ ] svc-c    |        +-+--+       +--+-+                | selected       |
+| [ ] svc-d    |          |             |                  |                |
+| ...          |   more callees (N)   shared               |                |
++--------------+-------------------------------------------+----------------+
+| Exploring from 2 pins, 7 services, 9 calls    [3 calls worse than 24h ago]|
++---------------------------------------------------------------------------+
 ```
 
 **Search pane.** A text input over service names with the DDG's existing `uiFind` semantics, a result list whose checkbox pins the service, and with no query the pins first and then services by total call count. `/` focuses the input. Facets wait for attributes Jaeger does not have and are not part of this RFC.
